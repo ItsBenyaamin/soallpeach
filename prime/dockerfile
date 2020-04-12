@@ -2,4 +2,4 @@ FROM rust
 
 COPY prime /bin/prime
 
-CMD ["/bin/prime"]
+ENTRYPOINT ["/bin/prime"]
