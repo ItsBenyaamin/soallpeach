@@ -23,14 +23,17 @@ fn main() {
 }
 
 fn is_prime(number: i64) -> bool {
-    if number <= 1 || number % 2 == 0 || number % 3 == 0{
+    if number <= 1 {
         return false;
     }
     if number <=3 {
         return true;
     }
-    let num_sqrt = (number as f64).sqrt() as i64;
-    for i in 2..num_sqrt {
+    if number % 2 == 0 || number % 3 == 0{
+        return false;
+    }
+    let num_sqrt = (number as f64).sqrt();
+    for i in 2..num_sqrt as i64 {
         if number % i == 0 {
             return true;
         }
