@@ -34,7 +34,7 @@ fn is_prime(number: i64) -> bool {
     }
     let num_sqrt = (number as f64).sqrt();
     for i in 2..num_sqrt as i64 {
-        if number % i == 0 {
+        if number % i != 0 {
             return true;
         }
     }
