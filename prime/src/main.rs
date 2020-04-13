@@ -7,27 +7,36 @@ fn main() {
         println!("there is no file passed!");
         return
     }
-    std::fs::read_to_string(&args[1]).expect("file not found!")
-        .lines()
-        .for_each(|x| match x.parse::<i64>() {
-            Ok(x) => {
-                if is_prime(x) {
-                    println!("{}", 1)
-                }else {
-                    println!("{}", 0)
-                }
-            },
-            _ => println!("there is a non-numeric character!")
-        });
+    let file_lines = std::fs::read_to_string(&args[1]).expect("file not found!");
+    let start = std::time::Instant::now();
+    for current in file_lines.split("\n") {
+        let num: i64 = current.parse().unwrap();
+        if is_prime(num) {
+            println!("{}", 1);
+        }else {
+            println!("{}", 0);
+        }
+    }
+
+    let end = std::time::Instant::now();
+    let time = end - start;
+    println!("run time: {}", time.as_secs());
 }
 
 fn is_prime(number: i64) -> bool {
     if number <= 1 {
         return false;
     }
-    for i in 2..number {
+    if number <=3 {
+        return true;
+    }
+    if number % 2 == 0 || number % 3 == 0{
+        return false;
+    }
+    let num_sqrt = (number as f64).sqrt();
+    for i in 2..num_sqrt as i64 {
         if number % i == 0 {
-            return false;
+            return true;
         }
     }
     true
