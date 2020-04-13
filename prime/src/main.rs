@@ -8,7 +8,6 @@ fn main() {
         return
     }
     let file_lines = std::fs::read_to_string(&args[1]).expect("file not found!");
-    let start = std::time::Instant::now();
     for current in file_lines.split("\n") {
         let num: i64 = current.parse().unwrap();
         if is_prime(num) {
@@ -17,10 +16,6 @@ fn main() {
             println!("{}", 0);
         }
     }
-
-    let end = std::time::Instant::now();
-    let time = end - start;
-    println!("run time: {}", time.as_secs());
 }
 
 fn is_prime(number: i64) -> bool {
