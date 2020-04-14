@@ -10,35 +10,29 @@ fn main() {
     }
     let mut output = String::new();
     let file = File::open(&args[1]).unwrap();
-    BufReader::new(&file)
-        .lines()
-        .filter_map(std::io::Result::ok)
-        .for_each(|x| {
-            let num: i64 = x.parse().unwrap();
-            if is_prime(num) {
-                output += "1\n";
-            }else {
-                output += "0\n";
-            }
-        });
+    let reader = BufReader::new(&file);
+    for i in reader.lines(){
+            let num: u64 = i.unwrap().parse().unwrap();
+            output += format!("{}\n", is_prime(num)).as_str();
+    }
     print!("{}", output);
 }
 
-fn is_prime(number: i64) -> bool {
+fn is_prime(number: u64) -> u8 {
     if number <= 1 {
-        return false;
+        return 0;
     }
     if number <=3 {
-        return true;
+        return 1;
     }
     if number % 2 == 0 || number % 3 == 0{
-        return false;
+        return 0;
     }
-    let num_sqrt = (number as f64).sqrt() as i64 ;
-    for i in 2..num_sqrt{
+    let num_sqrt = (number as f64).sqrt() as u64 ;
+    for i in (2..num_sqrt).step_by(2){
         if number % i == 0 {
-            return false;
+            return 0;
         }
     }
-    true
+    1
 }
