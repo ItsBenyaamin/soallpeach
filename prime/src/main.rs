@@ -25,11 +25,11 @@ fn is_prime(number: u64) -> u8 {
     if number <=3 {
         return 1;
     }
-    if number % 2 == 0 || number % 3 == 0{
+    if number % 2 == 0 {
         return 0;
     }
     let num_sqrt = (number as f64).sqrt() as u64 ;
-    for i in (5..num_sqrt).step_by(2){
+    for i in (3..num_sqrt).step_by(2){
         if number % i == 0 {
             return 0;
         }
