@@ -13,26 +13,26 @@ fn main() {
     let lines = BufReader::new(&file).lines().filter_map(std::io::Result::ok);
     for i in lines{
         let num: u64 = i.parse().unwrap();
-        output += format!("{}\n", is_prime(num)).as_str();
+        output += is_prime(num);
     }
     print!("{}", output);
 }
 
-fn is_prime(number: u64) -> u8 {
+fn is_prime(number: u64) -> &'static str {
     if number <= 1 {
-        return 0;
+        return "\n0";
     }
     if number <=3 {
-        return 1;
+        return "\n1";
     }
-    if number % 2 == 0 {
-        return 0;
+    if number % 2 == 0 || number % 3 == 0 {
+        return "\n0";
     }
     let num_sqrt = (number as f64).sqrt() as u64 ;
     for i in (3..num_sqrt).step_by(2){
         if number % i == 0 {
-            return 0;
+            return "\n0";
         }
     }
-    1
+    "\n1"
 }
