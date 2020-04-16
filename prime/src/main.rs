@@ -20,19 +20,19 @@ fn main() {
 
 fn is_prime(number: u64) -> &'static str {
     if number <= 1 {
-        return "\n0";
+        return "0\n";
     }
     if number <=3 {
-        return "\n1";
+        return "1\n";
     }
     if number % 2 == 0 || number % 3 == 0 {
-        return "\n0";
+        return "0\n";
     }
     let num_sqrt = (number as f64).sqrt() as u64 ;
     for i in (3..num_sqrt).step_by(2){
         if number % i == 0 {
-            return "\n0";
+            return "0\n";
         }
     }
-    "\n1"
+    "1\n"
 }
