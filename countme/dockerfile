@@ -1,5 +1,5 @@
 FROM rust
 
-COPY prime /bin/countme
+COPY countme /bin/countme
 
 ENTRYPOINT ["/bin/countme"]
