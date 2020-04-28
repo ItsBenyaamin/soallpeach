@@ -29,7 +29,7 @@ struct HitCount {
 
 fn main() {
     let config = Config::build(Environment::Production)
-        .address("0.0.0.0")
+        .address("localhost")
         .secret_key("sa4KVi6JOzGizfmXxckcUyrYXTU4IGgKFXHVrZeH050=")
         .port(80)
         .finalize();
