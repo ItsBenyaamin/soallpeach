@@ -1,10 +1,10 @@
 #![feature(proc_macro_hygiene, decl_macro)]
-
 #[macro_use] extern crate rocket;
 
-use std::sync::atomic::{AtomicUsize, Ordering};
+use rocket::config::{Config, Environment};
 use rocket::{State, Data};
 use rocket::response::status;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::io::Read;
 
 
@@ -28,7 +28,17 @@ struct HitCount {
 }
 
 fn main() {
-    rocket::ignite()
-        .manage(HitCount{count: AtomicUsize::new(0)})
-        .mount("/", routes![sum_route, count_route]).launch();
+    let config = Config::build(Environment::Production)
+        .address("0.0.0.0")
+        .secret_key("sa4KVi6JOzGizfmXxckcUyrYXTU4IGgKFXHVrZeH050=")
+        .port(80)
+        .finalize();
+    match config {
+        Ok(config)=> {
+            rocket::custom(config)
+                .manage(HitCount{count: AtomicUsize::new(0)})
+                .mount("/", routes![sum_route, count_route]).launch();
+        }
+        _ => {panic!("there is a problem!")}
+    }
 }
